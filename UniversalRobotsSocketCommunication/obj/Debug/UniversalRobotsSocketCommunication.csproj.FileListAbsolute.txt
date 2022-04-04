@@ -9,3 +9,14 @@ C:\UserData\z0041wnt\Documents\Git\URSocketCommuncation\UniversalRobotsSocketCom
 C:\UserData\z0041wnt\Documents\Git\URSocketCommuncation\UniversalRobotsSocketCommunication\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.exe
 C:\UserData\z0041wnt\Documents\Git\URSocketCommuncation\UniversalRobotsSocketCommunication\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.pdb
 C:\UserData\z0041wnt\Documents\Git\URSocketCommuncation\UniversalRobotsSocketCommunication\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.URCommunication.resources
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\bin\Debug\UniversalRobotsSocketCommunication.exe.config
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\bin\Debug\UniversalRobotsSocketCommunication.exe
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\bin\Debug\UniversalRobotsSocketCommunication.pdb
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.csproj.AssemblyReference.cache
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.csproj.SuggestedBindingRedirects.cache
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.URCommunication.resources
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.Properties.Resources.resources
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.csproj.GenerateResource.cache
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.csproj.CoreCompileInputs.cache
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.exe
+C:\UserData\z0041wnt\Documents\Git\UR-socket-communication-app\UniversalRobotsSocketCommunication\obj\Debug\UniversalRobotsSocketCommunication.pdb

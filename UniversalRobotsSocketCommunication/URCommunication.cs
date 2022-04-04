@@ -8,17 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 using System.Net;
 using System.Net.Sockets;
 
 namespace UniversalRobotsSocketCommunication
 {
+
     
     public partial class URCommunication : Form
     {
         private bool dashboardConnected = false;
-
         byte[] socketMessage = new byte[1024];
 
         // Establish the remote endpoint for the socket.  
@@ -29,12 +28,68 @@ namespace UniversalRobotsSocketCommunication
         // Create a TCP/IP  socket.  
         private static Socket dashBoardsender = new Socket(ipAddress.AddressFamily,
             SocketType.Stream, ProtocolType.Tcp);
-
-
+        
+        
 
         public URCommunication()
         {
             InitializeComponent();
+            InitTimer();
+
+
+        }
+
+        private Timer timer1;
+        private void InitTimer()
+        {
+            timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 100; // in miliseconds
+            timer1.Start();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (dashboardConnected)
+            {
+                int bytesRec = 0;
+                // Receive the response from the remote device.  
+                try
+                {
+
+                    bytesRec = dashBoardsender.Receive(socketMessage);
+                    dashboardOutput.AppendText($"Response: {Encoding.ASCII.GetString(socketMessage, 0, bytesRec)}\r\n");
+                }
+                catch
+                {
+                    
+                }
+
+                try
+                {
+                    byte[] msg = Encoding.ASCII.GetBytes($"get operational mode\r\n");
+                    int bytesSent = dashBoardsender.Send(msg);
+                    bytesRec = dashBoardsender.Receive(socketMessage);
+                    textBox1.Text = Encoding.ASCII.GetString(socketMessage, 0, bytesRec);
+
+                    msg = Encoding.ASCII.GetBytes($"programState\r\n");
+                    bytesSent = dashBoardsender.Send(msg);
+                    bytesRec = dashBoardsender.Receive(socketMessage);
+                    textBox2.Text = Encoding.ASCII.GetString(socketMessage, 0, bytesRec);
+
+                    msg = Encoding.ASCII.GetBytes($"robotmode\r\n");
+                    bytesSent = dashBoardsender.Send(msg);
+                    bytesRec = dashBoardsender.Receive(socketMessage);
+                    textBox3.Text = Encoding.ASCII.GetString(socketMessage, 0, bytesRec);
+
+                    msg = Encoding.ASCII.GetBytes($"safetystatus\r\n");
+                    bytesSent = dashBoardsender.Send(msg);
+                    bytesRec = dashBoardsender.Receive(socketMessage);
+                    textBox4.Text = Encoding.ASCII.GetString(socketMessage, 0, bytesRec);
+                }
+                catch { }
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -48,15 +103,18 @@ namespace UniversalRobotsSocketCommunication
                     dashBoardsender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                     dashBoardsender.ReceiveTimeout = 200;
                     dashBoardsender.Connect(dashboardIpInput.Text, 29999);
-                    dashboardConnected = true;
                     dashboardServerConnected.Checked = true;
+                    dashboardConnected = true;
                     dashboardOutput.AppendText($"Succesfully connected!\r\n");
+                    
 
                 }
                 catch
                 { 
                     dashboardOutput.AppendText($"Connection Failed!\r\n");
                 }
+
+
 
             }
             else
@@ -76,21 +134,7 @@ namespace UniversalRobotsSocketCommunication
                 byte[] msg = Encoding.ASCII.GetBytes($"{command}\r\n");
 
                 // Send the data through the socket.  
-                int bytesSent = dashBoardsender.Send(msg);
-
-                // Receive the response from the remote device.  
-                try
-                {
-                    int bytesRec = dashBoardsender.Receive(socketMessage);
-                    dashboardOutput.AppendText($"Response: {Encoding.ASCII.GetString(socketMessage, 0, bytesRec)}\r\n");
-
-                }
-                catch
-                {
-                    dashboardOutput.AppendText("No message received!\r\n");
-                }
-  
-                
+                int bytesSent = dashBoardsender.Send(msg);    
             }
             else
             {
@@ -157,7 +201,7 @@ namespace UniversalRobotsSocketCommunication
 
         private void button9_Click(object sender, EventArgs e)
         {
-            sendDashboardCommand("break release");
+            sendDashboardCommand("brake release");
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -191,6 +235,42 @@ namespace UniversalRobotsSocketCommunication
         }
 
         private void dashboardIpInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            sendDashboardCommand("close popup");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            sendDashboardCommand($"set operational mode {comboBox1.Text}");
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
         }

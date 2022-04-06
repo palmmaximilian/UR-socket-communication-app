@@ -61,6 +61,22 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dashboardOutput = new System.Windows.Forms.TextBox();
             this.PrimaryTab = new System.Windows.Forms.TabPage();
+            this.analogOut1Label = new System.Windows.Forms.Label();
+            this.analogOut0Label = new System.Windows.Forms.Label();
+            this.analogIn1Label = new System.Windows.Forms.Label();
+            this.analogIn0Label = new System.Windows.Forms.Label();
+            this.analogOut1Mode = new System.Windows.Forms.Label();
+            this.analogOut0Mode = new System.Windows.Forms.Label();
+            this.analogIn1Mode = new System.Windows.Forms.Label();
+            this.analogIn0Mode = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.sliderAnalogOut1 = new System.Windows.Forms.TrackBar();
+            this.sliderAnalogOut0 = new System.Windows.Forms.TrackBar();
+            this.sliderAnalogIn1 = new System.Windows.Forms.TrackBar();
+            this.sliderAnalogIn0 = new System.Windows.Forms.TrackBar();
             this.label8 = new System.Windows.Forms.Label();
             this.primaryConfigOutput = new System.Windows.Forms.CheckedListBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -78,9 +94,15 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.analogOut0Combobox = new System.Windows.Forms.ComboBox();
+            this.analogOut1Combobox = new System.Windows.Forms.ComboBox();
             this.DashboardTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.PrimaryTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogOut1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogOut0)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogIn1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogIn0)).BeginInit();
             this.SuspendLayout();
             // 
             // DashboardTab
@@ -418,6 +440,24 @@
             // 
             // PrimaryTab
             // 
+            this.PrimaryTab.Controls.Add(this.analogOut1Combobox);
+            this.PrimaryTab.Controls.Add(this.analogOut0Combobox);
+            this.PrimaryTab.Controls.Add(this.analogOut1Label);
+            this.PrimaryTab.Controls.Add(this.analogOut0Label);
+            this.PrimaryTab.Controls.Add(this.analogIn1Label);
+            this.PrimaryTab.Controls.Add(this.analogIn0Label);
+            this.PrimaryTab.Controls.Add(this.analogOut1Mode);
+            this.PrimaryTab.Controls.Add(this.analogOut0Mode);
+            this.PrimaryTab.Controls.Add(this.analogIn1Mode);
+            this.PrimaryTab.Controls.Add(this.analogIn0Mode);
+            this.PrimaryTab.Controls.Add(this.label15);
+            this.PrimaryTab.Controls.Add(this.label14);
+            this.PrimaryTab.Controls.Add(this.label13);
+            this.PrimaryTab.Controls.Add(this.label12);
+            this.PrimaryTab.Controls.Add(this.sliderAnalogOut1);
+            this.PrimaryTab.Controls.Add(this.sliderAnalogOut0);
+            this.PrimaryTab.Controls.Add(this.sliderAnalogIn1);
+            this.PrimaryTab.Controls.Add(this.sliderAnalogIn0);
             this.PrimaryTab.Controls.Add(this.label8);
             this.PrimaryTab.Controls.Add(this.primaryConfigOutput);
             this.PrimaryTab.Controls.Add(this.label9);
@@ -438,10 +478,164 @@
             this.PrimaryTab.Text = "Primary Server";
             this.PrimaryTab.UseVisualStyleBackColor = true;
             // 
+            // analogOut1Label
+            // 
+            this.analogOut1Label.AutoSize = true;
+            this.analogOut1Label.Location = new System.Drawing.Point(733, 190);
+            this.analogOut1Label.Name = "analogOut1Label";
+            this.analogOut1Label.Size = new System.Drawing.Size(41, 13);
+            this.analogOut1Label.TabIndex = 41;
+            this.analogOut1Label.Text = "label19";
+            // 
+            // analogOut0Label
+            // 
+            this.analogOut0Label.AutoSize = true;
+            this.analogOut0Label.Location = new System.Drawing.Point(733, 111);
+            this.analogOut0Label.Name = "analogOut0Label";
+            this.analogOut0Label.Size = new System.Drawing.Size(41, 13);
+            this.analogOut0Label.TabIndex = 40;
+            this.analogOut0Label.Text = "label18";
+            // 
+            // analogIn1Label
+            // 
+            this.analogIn1Label.AutoSize = true;
+            this.analogIn1Label.Location = new System.Drawing.Point(468, 190);
+            this.analogIn1Label.Name = "analogIn1Label";
+            this.analogIn1Label.Size = new System.Drawing.Size(41, 13);
+            this.analogIn1Label.TabIndex = 39;
+            this.analogIn1Label.Text = "label17";
+            // 
+            // analogIn0Label
+            // 
+            this.analogIn0Label.AutoSize = true;
+            this.analogIn0Label.Location = new System.Drawing.Point(468, 111);
+            this.analogIn0Label.Name = "analogIn0Label";
+            this.analogIn0Label.Size = new System.Drawing.Size(41, 13);
+            this.analogIn0Label.TabIndex = 38;
+            this.analogIn0Label.Text = "label16";
+            // 
+            // analogOut1Mode
+            // 
+            this.analogOut1Mode.AutoSize = true;
+            this.analogOut1Mode.Location = new System.Drawing.Point(783, 126);
+            this.analogOut1Mode.Name = "analogOut1Mode";
+            this.analogOut1Mode.Size = new System.Drawing.Size(82, 13);
+            this.analogOut1Mode.TabIndex = 37;
+            this.analogOut1Mode.Text = "Mode Analog In";
+            this.analogOut1Mode.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // analogOut0Mode
+            // 
+            this.analogOut0Mode.AutoSize = true;
+            this.analogOut0Mode.Location = new System.Drawing.Point(783, 44);
+            this.analogOut0Mode.Name = "analogOut0Mode";
+            this.analogOut0Mode.Size = new System.Drawing.Size(82, 13);
+            this.analogOut0Mode.TabIndex = 36;
+            this.analogOut0Mode.Text = "Mode Analog In";
+            this.analogOut0Mode.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // analogIn1Mode
+            // 
+            this.analogIn1Mode.AutoSize = true;
+            this.analogIn1Mode.Location = new System.Drawing.Point(518, 126);
+            this.analogIn1Mode.Name = "analogIn1Mode";
+            this.analogIn1Mode.Size = new System.Drawing.Size(82, 13);
+            this.analogIn1Mode.TabIndex = 35;
+            this.analogIn1Mode.Text = "Mode Analog In";
+            this.analogIn1Mode.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // analogIn0Mode
+            // 
+            this.analogIn0Mode.AutoSize = true;
+            this.analogIn0Mode.Location = new System.Drawing.Point(518, 44);
+            this.analogIn0Mode.Name = "analogIn0Mode";
+            this.analogIn0Mode.Size = new System.Drawing.Size(82, 13);
+            this.analogIn0Mode.TabIndex = 34;
+            this.analogIn0Mode.Text = "Mode Analog In";
+            this.analogIn0Mode.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(638, 126);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(69, 13);
+            this.label15.TabIndex = 33;
+            this.label15.Text = "Analog Out 1";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(638, 47);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(69, 13);
+            this.label14.TabIndex = 32;
+            this.label14.Text = "Analog Out 0";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(373, 126);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(61, 13);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "Analog In 1";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(373, 44);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(61, 13);
+            this.label12.TabIndex = 30;
+            this.label12.Text = "Analog In 0";
+            // 
+            // sliderAnalogOut1
+            // 
+            this.sliderAnalogOut1.Location = new System.Drawing.Point(641, 142);
+            this.sliderAnalogOut1.Maximum = 100;
+            this.sliderAnalogOut1.Name = "sliderAnalogOut1";
+            this.sliderAnalogOut1.Size = new System.Drawing.Size(224, 45);
+            this.sliderAnalogOut1.TabIndex = 29;
+            this.sliderAnalogOut1.TickFrequency = 10;
+            this.sliderAnalogOut1.ValueChanged += new System.EventHandler(this.AnalogOut1_Changed);
+            this.sliderAnalogOut1.MouseCaptureChanged += new System.EventHandler(this.AnalogOut1_Clicked);
+            // 
+            // sliderAnalogOut0
+            // 
+            this.sliderAnalogOut0.Location = new System.Drawing.Point(641, 63);
+            this.sliderAnalogOut0.Maximum = 100;
+            this.sliderAnalogOut0.Name = "sliderAnalogOut0";
+            this.sliderAnalogOut0.Size = new System.Drawing.Size(224, 45);
+            this.sliderAnalogOut0.TabIndex = 28;
+            this.sliderAnalogOut0.TickFrequency = 10;
+            this.sliderAnalogOut0.ValueChanged += new System.EventHandler(this.AnalogOut0_Changed);
+            this.sliderAnalogOut0.MouseCaptureChanged += new System.EventHandler(this.AnalogOut0_Clicked);
+            // 
+            // sliderAnalogIn1
+            // 
+            this.sliderAnalogIn1.Enabled = false;
+            this.sliderAnalogIn1.Location = new System.Drawing.Point(376, 142);
+            this.sliderAnalogIn1.Maximum = 100;
+            this.sliderAnalogIn1.Name = "sliderAnalogIn1";
+            this.sliderAnalogIn1.Size = new System.Drawing.Size(224, 45);
+            this.sliderAnalogIn1.TabIndex = 27;
+            this.sliderAnalogIn1.TickFrequency = 10;
+            // 
+            // sliderAnalogIn0
+            // 
+            this.sliderAnalogIn0.Enabled = false;
+            this.sliderAnalogIn0.Location = new System.Drawing.Point(376, 63);
+            this.sliderAnalogIn0.Maximum = 100;
+            this.sliderAnalogIn0.Name = "sliderAnalogIn0";
+            this.sliderAnalogIn0.Size = new System.Drawing.Size(224, 45);
+            this.sliderAnalogIn0.TabIndex = 26;
+            this.sliderAnalogIn0.TickFrequency = 10;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(275, 44);
+            this.label8.Location = new System.Drawing.Point(112, 44);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(72, 13);
             this.label8.TabIndex = 25;
@@ -460,7 +654,7 @@
             "5",
             "6",
             "7"});
-            this.primaryConfigOutput.Location = new System.Drawing.Point(275, 63);
+            this.primaryConfigOutput.Location = new System.Drawing.Point(112, 63);
             this.primaryConfigOutput.Name = "primaryConfigOutput";
             this.primaryConfigOutput.Size = new System.Drawing.Size(35, 124);
             this.primaryConfigOutput.TabIndex = 24;
@@ -469,7 +663,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(195, 44);
+            this.label9.Location = new System.Drawing.Point(32, 44);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(67, 13);
             this.label9.TabIndex = 23;
@@ -489,7 +683,7 @@
             "5",
             "6",
             "7"});
-            this.primaryConfigInput.Location = new System.Drawing.Point(195, 63);
+            this.primaryConfigInput.Location = new System.Drawing.Point(32, 63);
             this.primaryConfigInput.Name = "primaryConfigInput";
             this.primaryConfigInput.Size = new System.Drawing.Size(35, 124);
             this.primaryConfigInput.TabIndex = 22;
@@ -497,7 +691,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(115, 44);
+            this.label7.Location = new System.Drawing.Point(272, 44);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(76, 13);
             this.label7.TabIndex = 21;
@@ -516,7 +710,7 @@
             "5",
             "6",
             "7"});
-            this.primeryDigitalOut.Location = new System.Drawing.Point(115, 63);
+            this.primeryDigitalOut.Location = new System.Drawing.Point(272, 63);
             this.primeryDigitalOut.Name = "primeryDigitalOut";
             this.primeryDigitalOut.Size = new System.Drawing.Size(35, 124);
             this.primeryDigitalOut.TabIndex = 20;
@@ -525,7 +719,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(35, 44);
+            this.label6.Location = new System.Drawing.Point(192, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(68, 13);
             this.label6.TabIndex = 19;
@@ -545,18 +739,18 @@
             "5",
             "6",
             "7"});
-            this.primeryDI.Location = new System.Drawing.Point(35, 63);
+            this.primeryDI.Location = new System.Drawing.Point(192, 63);
             this.primeryDI.Name = "primeryDI";
             this.primeryDI.Size = new System.Drawing.Size(35, 124);
             this.primeryDI.TabIndex = 18;
             // 
             // primaryOutput
             // 
-            this.primaryOutput.Location = new System.Drawing.Point(35, 270);
+            this.primaryOutput.Location = new System.Drawing.Point(35, 430);
             this.primaryOutput.Multiline = true;
             this.primaryOutput.Name = "primaryOutput";
             this.primaryOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.primaryOutput.Size = new System.Drawing.Size(1217, 326);
+            this.primaryOutput.Size = new System.Drawing.Size(1217, 152);
             this.primaryOutput.TabIndex = 16;
             // 
             // PrimaryConnectedBox
@@ -636,6 +830,28 @@
             this.label11.TabIndex = 4;
             this.label11.Text = "Server";
             // 
+            // analogOut0Combobox
+            // 
+            this.analogOut0Combobox.FormattingEnabled = true;
+            this.analogOut0Combobox.Items.AddRange(new object[] {
+            "4mA - 20mA",
+            "0V     - 10V"});
+            this.analogOut0Combobox.Location = new System.Drawing.Point(871, 41);
+            this.analogOut0Combobox.Name = "analogOut0Combobox";
+            this.analogOut0Combobox.Size = new System.Drawing.Size(83, 21);
+            this.analogOut0Combobox.TabIndex = 42;
+            // 
+            // analogOut1Combobox
+            // 
+            this.analogOut1Combobox.FormattingEnabled = true;
+            this.analogOut1Combobox.Items.AddRange(new object[] {
+            "4mA - 20mA",
+            "0V     - 10V"});
+            this.analogOut1Combobox.Location = new System.Drawing.Point(871, 126);
+            this.analogOut1Combobox.Name = "analogOut1Combobox";
+            this.analogOut1Combobox.Size = new System.Drawing.Size(83, 21);
+            this.analogOut1Combobox.TabIndex = 43;
+            // 
             // URCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -654,6 +870,10 @@
             this.tabPage1.PerformLayout();
             this.PrimaryTab.ResumeLayout(false);
             this.PrimaryTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogOut1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogOut0)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogIn1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogIn0)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -711,6 +931,24 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TrackBar sliderAnalogOut1;
+        private System.Windows.Forms.TrackBar sliderAnalogOut0;
+        private System.Windows.Forms.TrackBar sliderAnalogIn1;
+        private System.Windows.Forms.TrackBar sliderAnalogIn0;
+        private System.Windows.Forms.Label analogOut1Mode;
+        private System.Windows.Forms.Label analogOut0Mode;
+        private System.Windows.Forms.Label analogIn1Mode;
+        private System.Windows.Forms.Label analogIn0Mode;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label analogOut1Label;
+        private System.Windows.Forms.Label analogOut0Label;
+        private System.Windows.Forms.Label analogIn1Label;
+        private System.Windows.Forms.Label analogIn0Label;
+        private System.Windows.Forms.ComboBox analogOut1Combobox;
+        private System.Windows.Forms.ComboBox analogOut0Combobox;
     }
 }
 

@@ -14,10 +14,10 @@ using System.Net.Sockets;
 namespace UniversalRobotsSocketCommunication
 {
 
-    
+
     public partial class URCommunication : Form
     {
-       
+
         byte[] socketMessage = new byte[1024];
 
         // Establish the remote endpoint for the socket.  
@@ -41,7 +41,7 @@ namespace UniversalRobotsSocketCommunication
             }
             comboBox1.SelectedIndex = 0;
             InitDashboardTimer();
-            InitPrimaryTimer();
+            InitPrimaryTab();
         }
 
 
@@ -53,7 +53,6 @@ namespace UniversalRobotsSocketCommunication
             dashboardTimer = new Timer();
             dashboardTimer.Tick += new EventHandler(DashboardTimer_Tick);
             dashboardTimer.Interval = 100; // in miliseconds
-            dashboardTimer.Start();
         }
 
         private void DashboardTimer_Tick(object sender, EventArgs e)
@@ -66,11 +65,14 @@ namespace UniversalRobotsSocketCommunication
                 {
 
                     bytesRec = dashboardSender.Receive(socketMessage);
-                    dashboardOutput.AppendText($"Response: {Encoding.ASCII.GetString(socketMessage, 0, bytesRec)}\r\n");
+                    if (bytesRec > 0)
+                    {
+                        dashboardOutput.AppendText($"Response: {Encoding.ASCII.GetString(socketMessage, 0, bytesRec)}\r\n");
+                    }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    
+
                 }
 
                 try
@@ -95,7 +97,8 @@ namespace UniversalRobotsSocketCommunication
                     bytesRec = dashboardSender.Receive(socketMessage);
                     textBox4.Text = Encoding.ASCII.GetString(socketMessage, 0, bytesRec);
                 }
-                catch { }
+                catch (Exception ex)
+                { }
 
             }
         }
@@ -105,11 +108,11 @@ namespace UniversalRobotsSocketCommunication
             if (dashboardConnected)
             {
                 dashboardOutput.AppendText($"Sending Command: {command} \r\n");
-                
+
                 byte[] msg = Encoding.ASCII.GetBytes($"{command}\r\n");
 
                 // Send the data through the socket.  
-                int bytesSent = dashboardSender.Send(msg);    
+                int bytesSent = dashboardSender.Send(msg);
             }
             else
             {
@@ -121,6 +124,8 @@ namespace UniversalRobotsSocketCommunication
         {
             if (!dashboardConnected)
             {
+
+                dashboardTimer.Start();
                 dashboardOutput.AppendText($"Trying to connect to {dashboardIpInput.Text}\r\n");
                 try
                 {
@@ -134,7 +139,7 @@ namespace UniversalRobotsSocketCommunication
 
 
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex);
                     dashboardOutput.AppendText($"Connection Failed!\r\n");
@@ -178,8 +183,10 @@ namespace UniversalRobotsSocketCommunication
         {
             if (dashboardConnected)
             {
+
                 dashboardConnected = false;
                 dashboardSender.Close();
+                dashboardTimer.Stop();
                 dashboardOutput.AppendText("Dashboard Server Disconnected!\r\n");
                 dashboardServerConnected.Checked = false;
             }
@@ -252,50 +259,81 @@ namespace UniversalRobotsSocketCommunication
         IEnumerable digitalOutput = new BitArray(8);
         IEnumerable ConfigOutput = new BitArray(8);
         IEnumerable ConfigInput = new BitArray(8);
+        // 0=Voltage, 1=Current
+        int analogInRange0 = 1;
+        int analogInRange1 = 1;
+        int analogOutRange0 = 1;
+        int analogOutRange1 = 1;
 
+        double analogIn0 = 0;
+        double analogIn1 = 0;
+        double analogOut0 = 0;
+        double analogOut1 = 0;
+
+        private void InitPrimaryTab()
+        {
+            analogIn0Mode.Text = "0V-10V";
+            analogIn1Mode.Text = "0V-10V";
+            analogOut0Mode.Text = "0V-10V";
+            analogOut1Mode.Text = "0V-10V";
+            analogIn0Label.Text = analogIn0.ToString() + "V";
+            analogIn1Label.Text = analogIn1.ToString() + "V";
+            analogOut0Label.Text = analogOut0.ToString() + "V";
+            analogOut1Label.Text = analogOut1.ToString() + "V";
+
+            analogOut0Combobox.SelectedIndex = analogOutRange0-1;
+            analogOut1Combobox.SelectedIndex = analogOutRange1-1;
+            InitPrimaryTimer();
+        }
+
+
+        
         private void InitPrimaryTimer()
         {
             primaryTimer = new Timer();
             primaryTimer.Tick += new EventHandler(PrimaryTimer_Tick);
-            primaryTimer.Interval = 40; // in miliseconds
-            primaryTimer.Start();
+            primaryTimer.Interval = 10; // in miliseconds
+            
         }
 
         private void DecodeMasterboardData(byte[] msg)
         {
-            byte[] value = new[] { msg[0], msg[1], msg[2], msg[3] };
-
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(value);
-
-            //digitalInput = new BitArray(msg[0]);
-            //digitalOutput = new BitArray(msg[1]);
-            /*
-            Console.WriteLine("Digital Inputs");
-            foreach (var digital in digitalInput)
-            {
-                Console.WriteLine(digital);
-            }
-            Console.WriteLine("Digital Inputs End");
-            */
-
-            value = new[] { msg[4], msg[5], msg[6], msg[7] };
-            if (BitConverter.IsLittleEndian)
-                Array.Reverse(value);
-            //IEnumerable digitalOutput = new BitArray(value);
 
 
             digitalInput = new BitArray(new[] { msg[3] });
             ConfigInput = new BitArray(new[] { msg[2] });
             digitalOutput = new BitArray(new[] { msg[7] });
             ConfigOutput = new BitArray(new[] { msg[6] });
+            analogInRange0 = (int)msg[8];
+            analogInRange1 = (int)msg[9];
+            analogOutRange0 = (int)msg[26];
+            analogOutRange1 = (int)msg[27];
 
+            byte[] data = msg.Skip(10).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            analogIn0 = System.BitConverter.ToDouble(data, 0);
+
+            data = msg.Skip(18).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            analogIn1 = System.BitConverter.ToDouble(data, 0);
+
+            data = msg.Skip(28).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            analogOut0 = System.BitConverter.ToDouble(data, 0);
+
+            data = msg.Skip(36).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            analogOut1 = System.BitConverter.ToDouble(data, 0);
 
         }
 
         private void UpdateLabels()
         {
-            updating = true;
+            //Updating IO
             int j = 0;
             foreach (var i in digitalOutput)
             {
@@ -320,7 +358,69 @@ namespace UniversalRobotsSocketCommunication
                 primaryConfigOutput.SetItemChecked(j, (bool)i);
                 j++;
             }
-            updating = false;
+
+
+            //Updating Analog Values
+            analogOut0Combobox.SelectedIndex = analogOutRange0 ;
+            analogOut1Combobox.SelectedIndex = analogOutRange1 ;
+
+            if (analogOutRange0 == 0)
+            {
+                analogOut0Mode.Text = "4mA - 20mA";
+                analogOut0Label.Text = string.Format("{0:N2}", analogOut0 * 1000) + "mA";
+                sliderAnalogOut0.Value = (int)ScaleValues(analogOut0, 0.004f, 0.02f, 0f, 100f);
+            }
+            else
+            {
+                analogOut0Mode.Text = "0V - 10V";
+                analogOut0Label.Text = string.Format("{0:N2}", analogOut0) + "V";
+                sliderAnalogOut0.Value = (int)(analogOut0*10f);
+
+
+            }
+            if (analogOutRange1 == 0)
+            {
+                analogOut1Mode.Text = "4mA - 20mA";
+                analogOut1Label.Text = string.Format("{0:N2}", analogOut1 * 1000) + "mA";
+                sliderAnalogOut1.Value = (int)ScaleValues(analogOut1, 0.004f, 0.02f, 0f, 100f);
+            }
+            else
+            {
+                analogOut1Mode.Text = "0V - 10V";
+                analogOut1Label.Text = string.Format("{0:N2}", analogOut1) + "V";
+                sliderAnalogOut1.Value = (int)(analogOut1 * 10f);
+
+            }
+            
+            
+            if (analogInRange0 == 0)
+            {
+                analogIn0Mode.Text = "4mA - 20mA";
+                analogIn0Label.Text = string.Format("{0:N2}", analogIn0 * 1000) + "mA";
+                sliderAnalogIn0.Value = (int)ScaleValues(analogIn0, 0.004f, 0.02f, 0f, 100f);
+            }
+            else
+            {
+                analogIn0Mode.Text = "0V - 10V";
+                analogIn0Label.Text = string.Format("{0:N2}", analogIn0) + "V";
+                sliderAnalogIn0.Value = (int)(analogIn0 * 10f);
+
+            }
+
+            if (analogInRange1 == 0)
+            {
+                analogIn1Mode.Text = "4mA - 20mA";
+                analogIn1Label.Text = string.Format("{0:N2}", analogIn1 * 1000) + "mA";
+                sliderAnalogIn1.Value = (int)ScaleValues(analogIn1, 0.004f, 0.02f, 0f, 100f);
+            }
+            else
+            {
+                analogIn1Mode.Text = "0V - 10V";
+                analogIn1Label.Text = string.Format("{0:N2}", analogIn1) + "V";
+                sliderAnalogIn1.Value = (int)(analogIn1 * 10f);
+
+            }
+           
 
         }
 
@@ -400,7 +500,7 @@ namespace UniversalRobotsSocketCommunication
 
                     pointer += submsgSize;
                     remaining_bytes -= submsgSize;
-                    
+
                 }
             }
 
@@ -418,18 +518,14 @@ namespace UniversalRobotsSocketCommunication
                 {
                     socketMessage = new byte[1024];
                     bytesRec = primarySender.Receive(socketMessage);
-                    DecodePrimaryResponse(socketMessage);
+
                     if (!setting)
                     {
+                        DecodePrimaryResponse(socketMessage);
+                        updating = true;
                         UpdateLabels();
+                        updating = false;
                     }
-
-                    /*
-                    if (msg.Length==0)
-                    {
-                        primaryOutput.AppendText($"Response: {msg}\r\n");
-                    }
-                    */
                 }
                 catch
                 {
@@ -444,15 +540,10 @@ namespace UniversalRobotsSocketCommunication
             if (primaryConnected)
             {
                 primaryOutput.AppendText($"Sending Command: {command} \r\n");
-
                 byte[] msg = Encoding.ASCII.GetBytes($"{command}\r\n");
 
                 // Send the data through the socket.  
                 int bytesSent = primarySender.Send(msg);
-            }
-            else
-            {
-                primaryOutput.AppendText("Primary Server not connected!\r\n");
             }
         }
         private void PrimaryConnect_Click(object sender, EventArgs e)
@@ -460,6 +551,7 @@ namespace UniversalRobotsSocketCommunication
 
             if (!primaryConnected)
             {
+                primaryTimer.Start();
                 primaryOutput.AppendText($"Trying to connect to {dashboardIpInput.Text}\r\n");
                 try
                 {
@@ -490,13 +582,12 @@ namespace UniversalRobotsSocketCommunication
             {
                 primaryConnected = false;
                 primarySender.Close();
+                primaryTimer.Stop();
                 primaryOutput.AppendText("Dashboard Server Disconnected!\r\n");
                 PrimaryConnectedBox.Checked = false;
             }
             else { primaryOutput.AppendText("Not connected\r\n"); }
         }
-
-
 
         private void PrimaryConfigOut_Checked(object sender, ItemCheckEventArgs e)
         {
@@ -513,14 +604,13 @@ namespace UniversalRobotsSocketCommunication
                     sendPrimaryCommand($"set_configurable_digital_out({e.Index},False)");
                 }
                 setting = false;
-            } 
+            }
         }
 
         private void AdapterChanged(object sender, EventArgs e)
         {
             ipAddress = ipHostInfo.AddressList[comboBox1.SelectedIndex];
         }
-
 
         private void PrimaryDigitalOutput_Checked(object sender, ItemCheckEventArgs e)
         {
@@ -535,8 +625,93 @@ namespace UniversalRobotsSocketCommunication
                 {
                     sendPrimaryCommand($"set_digital_out({e.Index},False)");
                 }
-                setting=false;
+                setting = false;
             }
+        }
+
+        private void AnalogOut0_Changed(object sender, EventArgs e)
+        {
+            if (!updating)
+            {
+                setting = true;
+                int percent = sliderAnalogOut0.Value;
+
+
+
+
+                if (analogOutRange0 == 0)
+                {
+                    //Analog 4-20
+                    float currVal = (16f / 100f * (float)percent) + 4f;
+                    analogOut0Label.Text = string.Format("{0:N2}", currVal) + "mA";
+                }
+                else
+                {
+
+                    float voltageVal = 10f / 100f * (float)percent;
+                    analogOut0Label.Text = string.Format("{0:N2}", voltageVal) + "V";
+
+                }
+
+                if (primaryConnected)
+                { 
+                    sendPrimaryCommand($"set_standard_analog_out(0, {((float)percent / 100f).ToString().Replace(',', '.')})");
+
+                }
+            }
+        }
+
+        private void AnalogOut1_Changed(object sender, EventArgs e)
+        {
+            if (!updating)
+            {
+                setting = true;
+                int percent = sliderAnalogOut1.Value;
+
+
+                if (analogOutRange1 == 0)
+                {
+                    //Analog 4-20
+                    float currVal = (16f / 100f * (float)percent) + 4f;
+                    analogOut1Label.Text = string.Format("{0:N2}", currVal) + "mA";
+                }
+                else
+                {
+                    float voltageVal = 10f / 100f * (float)percent;
+                    analogOut1Label.Text = string.Format("{0:N2}", voltageVal) + "V";
+
+                }
+                
+                if (primaryConnected)
+                {
+                    sendPrimaryCommand($"set_standard_analog_out(1, {((float)percent / 100f).ToString().Replace(',', '.')})");
+
+                }
+
+            }
+        }
+
+        private int ScaleValues(double input, double fromMin,double fromMax, double toMin, double toMax)
+        {
+            if (input < fromMin)
+                return (int)fromMin;
+
+            if (input > fromMax)
+                return (int)fromMax;
+
+             double inPerc=(input- fromMin)/(fromMax-fromMin);
+            int result = (int)((toMax - toMin) * inPerc + toMin);
+            return result;
+        }
+
+        private void AnalogOut0_Clicked(object sender, EventArgs e)
+        {
+            setting = false;
+        }
+
+        private void AnalogOut1_Clicked(object sender, EventArgs e)
+        {
+            setting = false;
         }
     }
 }

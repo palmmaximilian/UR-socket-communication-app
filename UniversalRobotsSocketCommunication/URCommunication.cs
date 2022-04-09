@@ -260,33 +260,84 @@ namespace UniversalRobotsSocketCommunication
         IEnumerable ConfigOutput = new BitArray(8);
         IEnumerable ConfigInput = new BitArray(8);
         // 0=Voltage, 1=Current
-        int analogInRange0 = 1;
-        int analogInRange1 = 1;
-        int analogOutRange0 = 1;
-        int analogOutRange1 = 1;
+        int analogInRange0 = 0;
+        int analogInRange1 = 0;
+        int analogOutRange0 = 0;
+        int analogOutRange1 = 0;
 
         double analogIn0 = 0;
         double analogIn1 = 0;
         double analogOut0 = 0;
         double analogOut1 = 0;
 
+        double x = 0;
+        double y = 0;
+        double z = 0;
+        double rx = 0;
+        double ry = 0;
+        double rz = 0;
+
         private void InitPrimaryTab()
         {
-            analogIn0Mode.Text = "0V-10V";
-            analogIn1Mode.Text = "0V-10V";
-            analogOut0Mode.Text = "0V-10V";
-            analogOut1Mode.Text = "0V-10V";
-            analogIn0Label.Text = analogIn0.ToString() + "V";
-            analogIn1Label.Text = analogIn1.ToString() + "V";
-            analogOut0Label.Text = analogOut0.ToString() + "V";
-            analogOut1Label.Text = analogOut1.ToString() + "V";
-
-            analogOut0Combobox.SelectedIndex = analogOutRange0-1;
-            analogOut1Combobox.SelectedIndex = analogOutRange1-1;
+            UpdateSliderLabel();
+            analogOut0Combobox.SelectedIndex = analogOutRange0;
+            analogOut1Combobox.SelectedIndex = analogOutRange1;
+            analogIn0Combobox.SelectedIndex = analogInRange0;
+            analogIn1Combobox.SelectedIndex = analogInRange1;
             InitPrimaryTimer();
         }
 
+        private void UpdateSliderLabel()
+        {
+            if (analogOutRange0 == 0)
+            {
+                //Analog 4-20
+                float currVal = (16f / 100f * (float)sliderAnalogOut0.Value) + 4f;
+                analogOut0Label.Text = string.Format("{0:N2}", currVal) + "mA";
+            }
+            else
+            {
 
+                float voltageVal = 10f / 100f * (float)sliderAnalogOut0.Value;
+                analogOut0Label.Text = string.Format("{0:N2}", voltageVal) + "V";
+            }
+            if (analogOutRange1 == 0)
+            {
+                //Analog 4-20
+                float currVal = (16f / 100f * (float)sliderAnalogOut1.Value) + 4f;
+                analogOut1Label.Text = string.Format("{0:N2}", currVal) + "mA";
+            }
+            else
+            {
+
+                float voltageVal = 10f / 100f * (float)sliderAnalogOut1.Value;
+                analogOut1Label.Text = string.Format("{0:N2}", voltageVal) + "V";
+            }
+            if (analogInRange0 == 0)
+            {
+                //Analog 4-20
+                float currVal = (16f / 100f * (float)sliderAnalogIn0.Value) + 4f;
+                analogIn0Label.Text = string.Format("{0:N2}", currVal) + "mA";
+            }
+            else
+            {
+
+                float voltageVal = 10f / 100f * (float)sliderAnalogIn0.Value;
+                analogIn0Label.Text = string.Format("{0:N2}", voltageVal) + "V";
+            }
+            if (analogInRange1 == 0)
+            {
+                //Analog 4-20
+                float currVal = (16f / 100f * (float)sliderAnalogIn1.Value) + 4f;
+                analogIn1Label.Text = string.Format("{0:N2}", currVal) + "mA";
+            }
+            else
+            {
+
+                float voltageVal = 10f / 100f * (float)sliderAnalogIn1.Value;
+                analogIn1Label.Text = string.Format("{0:N2}", voltageVal) + "V";
+            }
+        }
         
         private void InitPrimaryTimer()
         {
@@ -331,6 +382,44 @@ namespace UniversalRobotsSocketCommunication
 
         }
 
+        private void DecodeCartesianData(byte[] msg)
+        {
+
+
+
+
+            byte[] data = msg.Skip(0).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            x = System.BitConverter.ToDouble(data, 0);
+
+            data = msg.Skip(8).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            y = System.BitConverter.ToDouble(data, 0);
+
+            data = msg.Skip(16).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            z = System.BitConverter.ToDouble(data, 0);
+
+            data = msg.Skip(24).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            rx = System.BitConverter.ToDouble(data, 0);
+
+            data = msg.Skip(32).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            ry = System.BitConverter.ToDouble(data, 0);
+
+            data = msg.Skip(40).Take(8).ToArray();
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(data);
+            rz = System.BitConverter.ToDouble(data, 0);
+
+            PoseText.Text = $"p[{x.ToString("0.000")},{y.ToString("0.000")},{z.ToString("0.000")},{rx.ToString("0.000")},{ry.ToString("0.000")},{rz.ToString("0.000")}]";
+        }
         private void UpdateLabels()
         {
             //Updating IO
@@ -361,18 +450,18 @@ namespace UniversalRobotsSocketCommunication
 
 
             //Updating Analog Values
-            analogOut0Combobox.SelectedIndex = analogOutRange0 ;
-            analogOut1Combobox.SelectedIndex = analogOutRange1 ;
+            analogOut0Combobox.SelectedIndex = analogOutRange0;
+            analogOut1Combobox.SelectedIndex = analogOutRange1;
+            analogIn0Combobox.SelectedIndex = analogInRange0;
+            analogIn1Combobox.SelectedIndex = analogInRange1;
 
             if (analogOutRange0 == 0)
             {
-                analogOut0Mode.Text = "4mA - 20mA";
                 analogOut0Label.Text = string.Format("{0:N2}", analogOut0 * 1000) + "mA";
                 sliderAnalogOut0.Value = (int)ScaleValues(analogOut0, 0.004f, 0.02f, 0f, 100f);
             }
             else
             {
-                analogOut0Mode.Text = "0V - 10V";
                 analogOut0Label.Text = string.Format("{0:N2}", analogOut0) + "V";
                 sliderAnalogOut0.Value = (int)(analogOut0*10f);
 
@@ -380,13 +469,11 @@ namespace UniversalRobotsSocketCommunication
             }
             if (analogOutRange1 == 0)
             {
-                analogOut1Mode.Text = "4mA - 20mA";
                 analogOut1Label.Text = string.Format("{0:N2}", analogOut1 * 1000) + "mA";
                 sliderAnalogOut1.Value = (int)ScaleValues(analogOut1, 0.004f, 0.02f, 0f, 100f);
             }
             else
             {
-                analogOut1Mode.Text = "0V - 10V";
                 analogOut1Label.Text = string.Format("{0:N2}", analogOut1) + "V";
                 sliderAnalogOut1.Value = (int)(analogOut1 * 10f);
 
@@ -395,13 +482,11 @@ namespace UniversalRobotsSocketCommunication
             
             if (analogInRange0 == 0)
             {
-                analogIn0Mode.Text = "4mA - 20mA";
                 analogIn0Label.Text = string.Format("{0:N2}", analogIn0 * 1000) + "mA";
                 sliderAnalogIn0.Value = (int)ScaleValues(analogIn0, 0.004f, 0.02f, 0f, 100f);
             }
             else
             {
-                analogIn0Mode.Text = "0V - 10V";
                 analogIn0Label.Text = string.Format("{0:N2}", analogIn0) + "V";
                 sliderAnalogIn0.Value = (int)(analogIn0 * 10f);
 
@@ -409,13 +494,11 @@ namespace UniversalRobotsSocketCommunication
 
             if (analogInRange1 == 0)
             {
-                analogIn1Mode.Text = "4mA - 20mA";
                 analogIn1Label.Text = string.Format("{0:N2}", analogIn1 * 1000) + "mA";
                 sliderAnalogIn1.Value = (int)ScaleValues(analogIn1, 0.004f, 0.02f, 0f, 100f);
             }
             else
             {
-                analogIn1Mode.Text = "0V - 10V";
                 analogIn1Label.Text = string.Format("{0:N2}", analogIn1) + "V";
                 sliderAnalogIn1.Value = (int)(analogIn1 * 10f);
 
@@ -493,9 +576,15 @@ namespace UniversalRobotsSocketCommunication
                     int subMsgType = (int)socketMessage[pointer + 4];
                     byte[] data = socketMessage.Skip(pointer + 5).Take(pointer + submsgSize - 1).ToArray();
 
-                    if (subMsgType == 3)
+                    switch(subMsgType)
                     {
-                        DecodeMasterboardData(data);
+                        case 3:
+                            DecodeMasterboardData(data);
+                            break;
+                        case 4:
+                            DecodeCartesianData(data);
+                            break;
+
                     }
 
                     pointer += submsgSize;
@@ -519,13 +608,14 @@ namespace UniversalRobotsSocketCommunication
                     socketMessage = new byte[1024];
                     bytesRec = primarySender.Receive(socketMessage);
 
-                    if (!setting)
-                    {
-                        DecodePrimaryResponse(socketMessage);
-                        updating = true;
-                        UpdateLabels();
-                        updating = false;
-                    }
+                        if (!setting)
+                        {
+                            DecodePrimaryResponse(socketMessage);
+                            updating = true;
+                            UpdateLabels();
+                            updating = false;
+                        }
+
                 }
                 catch
                 {
@@ -704,14 +794,91 @@ namespace UniversalRobotsSocketCommunication
             return result;
         }
 
-        private void AnalogOut0_Clicked(object sender, EventArgs e)
+        private void AnalogIn0Mode_Changed(object sender, EventArgs e)
+        {
+            if (!updating)
+            {
+                analogInRange0 = analogIn0Combobox.SelectedIndex;
+                
+                if (primaryConnected)
+                {
+                    sendPrimaryCommand($"set_standard_analog_input_domain(0, {analogIn0Combobox.SelectedIndex})");
+                }
+                else { UpdateSliderLabel(); }
+            }
+        }
+
+        private void AnalogIn1Mode_Changed(object sender, EventArgs e)
+        {
+            if (!updating)
+            {
+                analogInRange1 = analogIn1Combobox.SelectedIndex;
+                if (primaryConnected)
+                {
+                    sendPrimaryCommand($"set_standard_analog_input_domain(1, {analogIn1Combobox.SelectedIndex})");
+                }
+                else { UpdateSliderLabel(); }
+            }
+        }
+
+        private void AnalogOut0Mode_Changed(object sender, EventArgs e)
+        {
+            if (!updating)
+            {
+                analogOutRange0 = analogOut0Combobox.SelectedIndex;
+                
+                if (primaryConnected)
+                {
+                    sendPrimaryCommand($"set_analog_outputdomain(0, {analogOut0Combobox.SelectedIndex})");
+                }
+                else { UpdateSliderLabel(); }
+            }
+        }
+
+        private void AnalogOut1Mode_Changed(object sender, EventArgs e)
+        {
+            if (!updating)
+            {
+                analogOutRange1 = analogOut1Combobox.SelectedIndex;
+                
+                if (primaryConnected)
+                {
+                    sendPrimaryCommand($"set_analog_outputdomain(1, {analogOut1Combobox.SelectedIndex})");
+                }
+                else { UpdateSliderLabel(); }
+            }
+        }
+
+        private void primarySetEditing(object sender, EventArgs e)
+        {
+            setting = true;
+        }
+
+        private void primaryRemoveEditing(object sender, EventArgs e)
         {
             setting = false;
         }
 
-        private void AnalogOut1_Clicked(object sender, EventArgs e)
+        private void EndFreedrive_Clicked(object sender, EventArgs e)
         {
-            setting = false;
+            sendPrimaryCommand("end_freedrive_mode()");
         }
+
+        private void StartFreedrive_Clicked(object sender, EventArgs e)
+        {
+            sendPrimaryCommand("freedrive_mode()");
+        }
+
+        private void SendURScript_Clicked(object sender, EventArgs e)
+        {
+            sendPrimaryCommand(URScriptComboBox.Text);
+        }
+
+        private void PrimaryClear_Clicked(object sender, EventArgs e)
+        {
+            primaryOutput.Clear();
+        }
+
+
     }
 }

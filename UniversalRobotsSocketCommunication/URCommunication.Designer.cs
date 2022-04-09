@@ -61,14 +61,21 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dashboardOutput = new System.Windows.Forms.TextBox();
             this.PrimaryTab = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.PoseText = new System.Windows.Forms.TextBox();
+            this.primaryClear = new System.Windows.Forms.Button();
+            this.EndFreedrive = new System.Windows.Forms.Button();
+            this.StartFreedrive = new System.Windows.Forms.Button();
+            this.SendURScript = new System.Windows.Forms.Button();
+            this.URScriptComboBox = new System.Windows.Forms.ComboBox();
+            this.analogIn1Combobox = new System.Windows.Forms.ComboBox();
+            this.analogIn0Combobox = new System.Windows.Forms.ComboBox();
+            this.analogOut1Combobox = new System.Windows.Forms.ComboBox();
+            this.analogOut0Combobox = new System.Windows.Forms.ComboBox();
             this.analogOut1Label = new System.Windows.Forms.Label();
             this.analogOut0Label = new System.Windows.Forms.Label();
             this.analogIn1Label = new System.Windows.Forms.Label();
             this.analogIn0Label = new System.Windows.Forms.Label();
-            this.analogOut1Mode = new System.Windows.Forms.Label();
-            this.analogOut0Mode = new System.Windows.Forms.Label();
-            this.analogIn1Mode = new System.Windows.Forms.Label();
-            this.analogIn0Mode = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -94,8 +101,6 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.analogOut0Combobox = new System.Windows.Forms.ComboBox();
-            this.analogOut1Combobox = new System.Windows.Forms.ComboBox();
             this.DashboardTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.PrimaryTab.SuspendLayout();
@@ -440,16 +445,21 @@
             // 
             // PrimaryTab
             // 
+            this.PrimaryTab.Controls.Add(this.label16);
+            this.PrimaryTab.Controls.Add(this.PoseText);
+            this.PrimaryTab.Controls.Add(this.primaryClear);
+            this.PrimaryTab.Controls.Add(this.EndFreedrive);
+            this.PrimaryTab.Controls.Add(this.StartFreedrive);
+            this.PrimaryTab.Controls.Add(this.SendURScript);
+            this.PrimaryTab.Controls.Add(this.URScriptComboBox);
+            this.PrimaryTab.Controls.Add(this.analogIn1Combobox);
+            this.PrimaryTab.Controls.Add(this.analogIn0Combobox);
             this.PrimaryTab.Controls.Add(this.analogOut1Combobox);
             this.PrimaryTab.Controls.Add(this.analogOut0Combobox);
             this.PrimaryTab.Controls.Add(this.analogOut1Label);
             this.PrimaryTab.Controls.Add(this.analogOut0Label);
             this.PrimaryTab.Controls.Add(this.analogIn1Label);
             this.PrimaryTab.Controls.Add(this.analogIn0Label);
-            this.PrimaryTab.Controls.Add(this.analogOut1Mode);
-            this.PrimaryTab.Controls.Add(this.analogOut0Mode);
-            this.PrimaryTab.Controls.Add(this.analogIn1Mode);
-            this.PrimaryTab.Controls.Add(this.analogIn0Mode);
             this.PrimaryTab.Controls.Add(this.label15);
             this.PrimaryTab.Controls.Add(this.label14);
             this.PrimaryTab.Controls.Add(this.label13);
@@ -478,10 +488,143 @@
             this.PrimaryTab.Text = "Primary Server";
             this.PrimaryTab.UseVisualStyleBackColor = true;
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(1221, 161);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(31, 13);
+            this.label16.TabIndex = 52;
+            this.label16.Text = "Pose";
+            // 
+            // PoseText
+            // 
+            this.PoseText.Location = new System.Drawing.Point(895, 158);
+            this.PoseText.Name = "PoseText";
+            this.PoseText.Size = new System.Drawing.Size(320, 20);
+            this.PoseText.TabIndex = 51;
+            // 
+            // primaryClear
+            // 
+            this.primaryClear.Location = new System.Drawing.Point(32, 581);
+            this.primaryClear.Name = "primaryClear";
+            this.primaryClear.Size = new System.Drawing.Size(75, 23);
+            this.primaryClear.TabIndex = 50;
+            this.primaryClear.Text = "Clear";
+            this.primaryClear.UseVisualStyleBackColor = true;
+            this.primaryClear.Click += new System.EventHandler(this.PrimaryClear_Clicked);
+            // 
+            // EndFreedrive
+            // 
+            this.EndFreedrive.Location = new System.Drawing.Point(997, 63);
+            this.EndFreedrive.Name = "EndFreedrive";
+            this.EndFreedrive.Size = new System.Drawing.Size(96, 23);
+            this.EndFreedrive.TabIndex = 49;
+            this.EndFreedrive.Text = "End Freedrive";
+            this.EndFreedrive.UseVisualStyleBackColor = true;
+            this.EndFreedrive.Click += new System.EventHandler(this.EndFreedrive_Clicked);
+            // 
+            // StartFreedrive
+            // 
+            this.StartFreedrive.Location = new System.Drawing.Point(895, 63);
+            this.StartFreedrive.Name = "StartFreedrive";
+            this.StartFreedrive.Size = new System.Drawing.Size(96, 23);
+            this.StartFreedrive.TabIndex = 48;
+            this.StartFreedrive.Text = "Start Freedrive";
+            this.StartFreedrive.UseVisualStyleBackColor = true;
+            this.StartFreedrive.Click += new System.EventHandler(this.StartFreedrive_Clicked);
+            // 
+            // SendURScript
+            // 
+            this.SendURScript.Location = new System.Drawing.Point(384, 244);
+            this.SendURScript.Name = "SendURScript";
+            this.SendURScript.Size = new System.Drawing.Size(153, 23);
+            this.SendURScript.TabIndex = 47;
+            this.SendURScript.Text = "Send URScript Command";
+            this.SendURScript.UseVisualStyleBackColor = true;
+            this.SendURScript.Click += new System.EventHandler(this.SendURScript_Clicked);
+            // 
+            // URScriptComboBox
+            // 
+            this.URScriptComboBox.FormattingEnabled = true;
+            this.URScriptComboBox.Items.AddRange(new object[] {
+            "set_gravity(d)",
+            "set_payload(m, cog)",
+            "set_payload_cog(CoG)",
+            "set_payload_mass(m)",
+            "set_tcp(pose)",
+            "textmsg(s1, s2=’’)",
+            "movej(q, a=1.4, v=1.05, t=0, r=0)",
+            "movel(pose, a=1.2, v=0.25, t=0, r=0)",
+            "movep(pose, a=1.2, v=0.25, r=0",
+            "position_deviation_warning(enabled, threshold=0.8)",
+            "stopj(a)",
+            "stopl(a, aRot=’a’)"});
+            this.URScriptComboBox.Location = new System.Drawing.Point(35, 244);
+            this.URScriptComboBox.Name = "URScriptComboBox";
+            this.URScriptComboBox.Size = new System.Drawing.Size(343, 21);
+            this.URScriptComboBox.TabIndex = 46;
+            // 
+            // analogIn1Combobox
+            // 
+            this.analogIn1Combobox.FormattingEnabled = true;
+            this.analogIn1Combobox.Items.AddRange(new object[] {
+            "4mA - 20mA",
+            "0V     - 10V"});
+            this.analogIn1Combobox.Location = new System.Drawing.Point(517, 131);
+            this.analogIn1Combobox.Name = "analogIn1Combobox";
+            this.analogIn1Combobox.Size = new System.Drawing.Size(83, 21);
+            this.analogIn1Combobox.TabIndex = 45;
+            this.analogIn1Combobox.DropDown += new System.EventHandler(this.primarySetEditing);
+            this.analogIn1Combobox.SelectedIndexChanged += new System.EventHandler(this.AnalogIn1Mode_Changed);
+            this.analogIn1Combobox.DropDownClosed += new System.EventHandler(this.primaryRemoveEditing);
+            // 
+            // analogIn0Combobox
+            // 
+            this.analogIn0Combobox.FormattingEnabled = true;
+            this.analogIn0Combobox.Items.AddRange(new object[] {
+            "4mA - 20mA",
+            "0V     - 10V"});
+            this.analogIn0Combobox.Location = new System.Drawing.Point(517, 36);
+            this.analogIn0Combobox.Name = "analogIn0Combobox";
+            this.analogIn0Combobox.Size = new System.Drawing.Size(83, 21);
+            this.analogIn0Combobox.TabIndex = 44;
+            this.analogIn0Combobox.DropDown += new System.EventHandler(this.primarySetEditing);
+            this.analogIn0Combobox.SelectedIndexChanged += new System.EventHandler(this.AnalogIn0Mode_Changed);
+            this.analogIn0Combobox.DropDownClosed += new System.EventHandler(this.primaryRemoveEditing);
+            // 
+            // analogOut1Combobox
+            // 
+            this.analogOut1Combobox.FormattingEnabled = true;
+            this.analogOut1Combobox.Items.AddRange(new object[] {
+            "4mA - 20mA",
+            "0V     - 10V"});
+            this.analogOut1Combobox.Location = new System.Drawing.Point(782, 131);
+            this.analogOut1Combobox.Name = "analogOut1Combobox";
+            this.analogOut1Combobox.Size = new System.Drawing.Size(83, 21);
+            this.analogOut1Combobox.TabIndex = 43;
+            this.analogOut1Combobox.DropDown += new System.EventHandler(this.primarySetEditing);
+            this.analogOut1Combobox.SelectedIndexChanged += new System.EventHandler(this.AnalogOut1Mode_Changed);
+            this.analogOut1Combobox.DropDownClosed += new System.EventHandler(this.primaryRemoveEditing);
+            // 
+            // analogOut0Combobox
+            // 
+            this.analogOut0Combobox.FormattingEnabled = true;
+            this.analogOut0Combobox.Items.AddRange(new object[] {
+            "4mA - 20mA",
+            "0V     - 10V"});
+            this.analogOut0Combobox.Location = new System.Drawing.Point(782, 36);
+            this.analogOut0Combobox.Name = "analogOut0Combobox";
+            this.analogOut0Combobox.Size = new System.Drawing.Size(83, 21);
+            this.analogOut0Combobox.TabIndex = 42;
+            this.analogOut0Combobox.DropDown += new System.EventHandler(this.primarySetEditing);
+            this.analogOut0Combobox.SelectedIndexChanged += new System.EventHandler(this.AnalogOut0Mode_Changed);
+            this.analogOut0Combobox.DropDownClosed += new System.EventHandler(this.primaryRemoveEditing);
+            // 
             // analogOut1Label
             // 
             this.analogOut1Label.AutoSize = true;
-            this.analogOut1Label.Location = new System.Drawing.Point(733, 190);
+            this.analogOut1Label.Location = new System.Drawing.Point(733, 206);
             this.analogOut1Label.Name = "analogOut1Label";
             this.analogOut1Label.Size = new System.Drawing.Size(41, 13);
             this.analogOut1Label.TabIndex = 41;
@@ -499,7 +642,7 @@
             // analogIn1Label
             // 
             this.analogIn1Label.AutoSize = true;
-            this.analogIn1Label.Location = new System.Drawing.Point(468, 190);
+            this.analogIn1Label.Location = new System.Drawing.Point(468, 206);
             this.analogIn1Label.Name = "analogIn1Label";
             this.analogIn1Label.Size = new System.Drawing.Size(41, 13);
             this.analogIn1Label.TabIndex = 39;
@@ -514,50 +657,10 @@
             this.analogIn0Label.TabIndex = 38;
             this.analogIn0Label.Text = "label16";
             // 
-            // analogOut1Mode
-            // 
-            this.analogOut1Mode.AutoSize = true;
-            this.analogOut1Mode.Location = new System.Drawing.Point(783, 126);
-            this.analogOut1Mode.Name = "analogOut1Mode";
-            this.analogOut1Mode.Size = new System.Drawing.Size(82, 13);
-            this.analogOut1Mode.TabIndex = 37;
-            this.analogOut1Mode.Text = "Mode Analog In";
-            this.analogOut1Mode.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // analogOut0Mode
-            // 
-            this.analogOut0Mode.AutoSize = true;
-            this.analogOut0Mode.Location = new System.Drawing.Point(783, 44);
-            this.analogOut0Mode.Name = "analogOut0Mode";
-            this.analogOut0Mode.Size = new System.Drawing.Size(82, 13);
-            this.analogOut0Mode.TabIndex = 36;
-            this.analogOut0Mode.Text = "Mode Analog In";
-            this.analogOut0Mode.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // analogIn1Mode
-            // 
-            this.analogIn1Mode.AutoSize = true;
-            this.analogIn1Mode.Location = new System.Drawing.Point(518, 126);
-            this.analogIn1Mode.Name = "analogIn1Mode";
-            this.analogIn1Mode.Size = new System.Drawing.Size(82, 13);
-            this.analogIn1Mode.TabIndex = 35;
-            this.analogIn1Mode.Text = "Mode Analog In";
-            this.analogIn1Mode.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // analogIn0Mode
-            // 
-            this.analogIn0Mode.AutoSize = true;
-            this.analogIn0Mode.Location = new System.Drawing.Point(518, 44);
-            this.analogIn0Mode.Name = "analogIn0Mode";
-            this.analogIn0Mode.Size = new System.Drawing.Size(82, 13);
-            this.analogIn0Mode.TabIndex = 34;
-            this.analogIn0Mode.Text = "Mode Analog In";
-            this.analogIn0Mode.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(638, 126);
+            this.label15.Location = new System.Drawing.Point(638, 142);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(69, 13);
             this.label15.TabIndex = 33;
@@ -575,7 +678,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(373, 126);
+            this.label13.Location = new System.Drawing.Point(373, 142);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(61, 13);
             this.label13.TabIndex = 31;
@@ -592,14 +695,14 @@
             // 
             // sliderAnalogOut1
             // 
-            this.sliderAnalogOut1.Location = new System.Drawing.Point(641, 142);
+            this.sliderAnalogOut1.Location = new System.Drawing.Point(641, 158);
             this.sliderAnalogOut1.Maximum = 100;
             this.sliderAnalogOut1.Name = "sliderAnalogOut1";
             this.sliderAnalogOut1.Size = new System.Drawing.Size(224, 45);
             this.sliderAnalogOut1.TabIndex = 29;
             this.sliderAnalogOut1.TickFrequency = 10;
             this.sliderAnalogOut1.ValueChanged += new System.EventHandler(this.AnalogOut1_Changed);
-            this.sliderAnalogOut1.MouseCaptureChanged += new System.EventHandler(this.AnalogOut1_Clicked);
+            this.sliderAnalogOut1.MouseCaptureChanged += new System.EventHandler(this.primaryRemoveEditing);
             // 
             // sliderAnalogOut0
             // 
@@ -610,12 +713,12 @@
             this.sliderAnalogOut0.TabIndex = 28;
             this.sliderAnalogOut0.TickFrequency = 10;
             this.sliderAnalogOut0.ValueChanged += new System.EventHandler(this.AnalogOut0_Changed);
-            this.sliderAnalogOut0.MouseCaptureChanged += new System.EventHandler(this.AnalogOut0_Clicked);
+            this.sliderAnalogOut0.MouseCaptureChanged += new System.EventHandler(this.primaryRemoveEditing);
             // 
             // sliderAnalogIn1
             // 
             this.sliderAnalogIn1.Enabled = false;
-            this.sliderAnalogIn1.Location = new System.Drawing.Point(376, 142);
+            this.sliderAnalogIn1.Location = new System.Drawing.Point(376, 158);
             this.sliderAnalogIn1.Maximum = 100;
             this.sliderAnalogIn1.Name = "sliderAnalogIn1";
             this.sliderAnalogIn1.Size = new System.Drawing.Size(224, 45);
@@ -746,11 +849,11 @@
             // 
             // primaryOutput
             // 
-            this.primaryOutput.Location = new System.Drawing.Point(35, 430);
+            this.primaryOutput.Location = new System.Drawing.Point(35, 304);
             this.primaryOutput.Multiline = true;
             this.primaryOutput.Name = "primaryOutput";
             this.primaryOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.primaryOutput.Size = new System.Drawing.Size(1217, 152);
+            this.primaryOutput.Size = new System.Drawing.Size(1217, 271);
             this.primaryOutput.TabIndex = 16;
             // 
             // PrimaryConnectedBox
@@ -830,28 +933,6 @@
             this.label11.TabIndex = 4;
             this.label11.Text = "Server";
             // 
-            // analogOut0Combobox
-            // 
-            this.analogOut0Combobox.FormattingEnabled = true;
-            this.analogOut0Combobox.Items.AddRange(new object[] {
-            "4mA - 20mA",
-            "0V     - 10V"});
-            this.analogOut0Combobox.Location = new System.Drawing.Point(871, 41);
-            this.analogOut0Combobox.Name = "analogOut0Combobox";
-            this.analogOut0Combobox.Size = new System.Drawing.Size(83, 21);
-            this.analogOut0Combobox.TabIndex = 42;
-            // 
-            // analogOut1Combobox
-            // 
-            this.analogOut1Combobox.FormattingEnabled = true;
-            this.analogOut1Combobox.Items.AddRange(new object[] {
-            "4mA - 20mA",
-            "0V     - 10V"});
-            this.analogOut1Combobox.Location = new System.Drawing.Point(871, 126);
-            this.analogOut1Combobox.Name = "analogOut1Combobox";
-            this.analogOut1Combobox.Size = new System.Drawing.Size(83, 21);
-            this.analogOut1Combobox.TabIndex = 43;
-            // 
             // URCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -864,7 +945,7 @@
             this.Controls.Add(this.DashboardTab);
             this.Controls.Add(this.dashboardIpInput);
             this.Name = "URCommunication";
-            this.Text = "Form1";
+            this.Text = "Universal Robots Communication Tool";
             this.DashboardTab.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -936,10 +1017,6 @@
         private System.Windows.Forms.TrackBar sliderAnalogOut0;
         private System.Windows.Forms.TrackBar sliderAnalogIn1;
         private System.Windows.Forms.TrackBar sliderAnalogIn0;
-        private System.Windows.Forms.Label analogOut1Mode;
-        private System.Windows.Forms.Label analogOut0Mode;
-        private System.Windows.Forms.Label analogIn1Mode;
-        private System.Windows.Forms.Label analogIn0Mode;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
@@ -949,6 +1026,15 @@
         private System.Windows.Forms.Label analogIn0Label;
         private System.Windows.Forms.ComboBox analogOut1Combobox;
         private System.Windows.Forms.ComboBox analogOut0Combobox;
+        private System.Windows.Forms.ComboBox analogIn1Combobox;
+        private System.Windows.Forms.ComboBox analogIn0Combobox;
+        private System.Windows.Forms.Button EndFreedrive;
+        private System.Windows.Forms.Button StartFreedrive;
+        private System.Windows.Forms.Button SendURScript;
+        private System.Windows.Forms.ComboBox URScriptComboBox;
+        private System.Windows.Forms.Button primaryClear;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox PoseText;
     }
 }
 

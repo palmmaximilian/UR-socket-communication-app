@@ -101,6 +101,10 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.JointsText = new System.Windows.Forms.TextBox();
+            this.ScriptBox = new System.Windows.Forms.TextBox();
+            this.primarySendScript = new System.Windows.Forms.Button();
             this.DashboardTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.PrimaryTab.SuspendLayout();
@@ -445,6 +449,10 @@
             // 
             // PrimaryTab
             // 
+            this.PrimaryTab.Controls.Add(this.primarySendScript);
+            this.PrimaryTab.Controls.Add(this.ScriptBox);
+            this.PrimaryTab.Controls.Add(this.label17);
+            this.PrimaryTab.Controls.Add(this.JointsText);
             this.PrimaryTab.Controls.Add(this.label16);
             this.PrimaryTab.Controls.Add(this.PoseText);
             this.PrimaryTab.Controls.Add(this.primaryClear);
@@ -853,7 +861,7 @@
             this.primaryOutput.Multiline = true;
             this.primaryOutput.Name = "primaryOutput";
             this.primaryOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.primaryOutput.Size = new System.Drawing.Size(1217, 271);
+            this.primaryOutput.Size = new System.Drawing.Size(605, 271);
             this.primaryOutput.TabIndex = 16;
             // 
             // PrimaryConnectedBox
@@ -932,6 +940,41 @@
             this.label11.Size = new System.Drawing.Size(38, 13);
             this.label11.TabIndex = 4;
             this.label11.Text = "Server";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(1221, 186);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(34, 13);
+            this.label17.TabIndex = 54;
+            this.label17.Text = "Joints";
+            // 
+            // JointsText
+            // 
+            this.JointsText.Location = new System.Drawing.Point(895, 183);
+            this.JointsText.Name = "JointsText";
+            this.JointsText.Size = new System.Drawing.Size(320, 20);
+            this.JointsText.TabIndex = 53;
+            // 
+            // ScriptBox
+            // 
+            this.ScriptBox.Location = new System.Drawing.Point(650, 304);
+            this.ScriptBox.Multiline = true;
+            this.ScriptBox.Name = "ScriptBox";
+            this.ScriptBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ScriptBox.Size = new System.Drawing.Size(605, 271);
+            this.ScriptBox.TabIndex = 55;
+            // 
+            // primarySendScript
+            // 
+            this.primarySendScript.Location = new System.Drawing.Point(650, 581);
+            this.primarySendScript.Name = "primarySendScript";
+            this.primarySendScript.Size = new System.Drawing.Size(124, 23);
+            this.primarySendScript.TabIndex = 56;
+            this.primarySendScript.Text = "Send Script";
+            this.primarySendScript.UseVisualStyleBackColor = true;
+            this.primarySendScript.Click += new System.EventHandler(this.primarySendScript_Click);
             // 
             // URCommunication
             // 
@@ -1035,6 +1078,10 @@
         private System.Windows.Forms.Button primaryClear;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox PoseText;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox JointsText;
+        private System.Windows.Forms.Button primarySendScript;
+        private System.Windows.Forms.TextBox ScriptBox;
     }
 }
 

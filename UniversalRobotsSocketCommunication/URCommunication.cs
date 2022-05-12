@@ -277,6 +277,14 @@ namespace UniversalRobotsSocketCommunication
         double ry = 0;
         double rz = 0;
 
+        double q0 = 0;
+        double q1 = 0;
+        double q2 = 0;
+        double q3 = 0;
+        double q4 = 0;
+        double q5 = 0;
+
+
         private void InitPrimaryTab()
         {
             UpdateSliderLabel();
@@ -382,6 +390,32 @@ namespace UniversalRobotsSocketCommunication
 
         }
 
+        private void DecodeJointData(byte[] msg)
+        {
+            int length_package = 41;
+            byte[] data = msg.Skip(0).Take(8).ToArray();
+
+            double[] joints = {0,0,0,0,0,0};
+
+            for (int i = 0; i < 6; i++)
+            {
+                data = msg.Skip(i*length_package).Take(8).ToArray();
+                if (BitConverter.IsLittleEndian)
+                    Array.Reverse(data);
+                joints[i] = System.BitConverter.ToDouble(data, 0);
+               
+            }
+            q0 = joints[0];
+            q1 = joints[1];
+            q2 = joints[2];
+            q3 = joints[3];
+            q4 = joints[4];
+            q5 = joints[5];
+            JointsText.Text = $"[{q0.ToString("0.000")},{q1.ToString("0.000")},{q2.ToString("0.000")},{q3.ToString("0.000")},{q4.ToString("0.000")},{q5.ToString("0.000")}]";
+
+
+
+        }
         private void DecodeCartesianData(byte[] msg)
         {
 
@@ -578,6 +612,9 @@ namespace UniversalRobotsSocketCommunication
 
                     switch(subMsgType)
                     {
+                        case 1:
+                            DecodeJointData(data);
+                            break;
                         case 3:
                             DecodeMasterboardData(data);
                             break;
@@ -625,11 +662,15 @@ namespace UniversalRobotsSocketCommunication
             }
         }
 
-        private void sendPrimaryCommand(string command)
+        private void sendPrimaryCommand(string command,bool supressOutput=false)
         {
             if (primaryConnected)
             {
-                primaryOutput.AppendText($"Sending Command: {command} \r\n");
+                if (!supressOutput)
+                {
+                    primaryOutput.AppendText($"Sending Command: {command} \r\n");
+
+                }
                 byte[] msg = Encoding.ASCII.GetBytes($"{command}\r\n");
 
                 // Send the data through the socket.  
@@ -879,6 +920,9 @@ namespace UniversalRobotsSocketCommunication
             primaryOutput.Clear();
         }
 
-
+        private void primarySendScript_Click(object sender, EventArgs e)
+        {
+            sendPrimaryCommand(ScriptBox.Text, supressOutput:true);
+        }
     }
 }

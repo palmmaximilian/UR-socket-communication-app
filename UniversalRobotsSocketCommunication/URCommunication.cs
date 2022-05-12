@@ -70,7 +70,7 @@ namespace UniversalRobotsSocketCommunication
                         dashboardOutput.AppendText($"Response: {Encoding.ASCII.GetString(socketMessage, 0, bytesRec)}\r\n");
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
 
                 }
@@ -97,7 +97,7 @@ namespace UniversalRobotsSocketCommunication
                     bytesRec = dashboardSender.Receive(socketMessage);
                     textBox4.Text = Encoding.ASCII.GetString(socketMessage, 0, bytesRec);
                 }
-                catch (Exception ex)
+                catch
                 { }
 
             }
@@ -907,7 +907,14 @@ namespace UniversalRobotsSocketCommunication
 
         private void StartFreedrive_Clicked(object sender, EventArgs e)
         {
-            sendPrimaryCommand("def frd():\r\nfreedrive_mode()\r\nsleep(60)\r\nend", supressOutput: true);
+            sendPrimaryCommand(@"
+def frd(): 
+    freedrive_mode()
+    while (1):
+        sync()
+    end
+end", supressOutput: true);
+            primaryOutput.AppendText("Freedrive started!\r\n");
         }
 
         private void SendURScript_Clicked(object sender, EventArgs e)
@@ -923,6 +930,7 @@ namespace UniversalRobotsSocketCommunication
         private void primarySendScript_Click(object sender, EventArgs e)
         {
             sendPrimaryCommand(ScriptBox.Text, supressOutput:true);
+            primaryOutput.AppendText("Script sent!\r\n");
         }
     }
 }

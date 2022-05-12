@@ -105,6 +105,8 @@
             this.JointsText = new System.Windows.Forms.TextBox();
             this.ScriptBox = new System.Windows.Forms.TextBox();
             this.primarySendScript = new System.Windows.Forms.Button();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.DashboardTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.PrimaryTab.SuspendLayout();
@@ -449,6 +451,8 @@
             // 
             // PrimaryTab
             // 
+            this.PrimaryTab.Controls.Add(this.label19);
+            this.PrimaryTab.Controls.Add(this.label18);
             this.PrimaryTab.Controls.Add(this.primarySendScript);
             this.PrimaryTab.Controls.Add(this.ScriptBox);
             this.PrimaryTab.Controls.Add(this.label17);
@@ -860,6 +864,7 @@
             this.primaryOutput.Location = new System.Drawing.Point(35, 304);
             this.primaryOutput.Multiline = true;
             this.primaryOutput.Name = "primaryOutput";
+            this.primaryOutput.ReadOnly = true;
             this.primaryOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.primaryOutput.Size = new System.Drawing.Size(605, 271);
             this.primaryOutput.TabIndex = 16;
@@ -976,6 +981,26 @@
             this.primarySendScript.UseVisualStyleBackColor = true;
             this.primarySendScript.Click += new System.EventHandler(this.primarySendScript_Click);
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(647, 285);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(72, 16);
+            this.label18.TabIndex = 57;
+            this.label18.Text = "Script Input";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(32, 285);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(45, 16);
+            this.label19.TabIndex = 58;
+            this.label19.Text = "Output";
+            // 
             // URCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1082,6 +1107,8 @@
         private System.Windows.Forms.TextBox JointsText;
         private System.Windows.Forms.Button primarySendScript;
         private System.Windows.Forms.TextBox ScriptBox;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
     }
 }
 

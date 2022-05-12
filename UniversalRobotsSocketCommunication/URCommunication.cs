@@ -411,7 +411,7 @@ namespace UniversalRobotsSocketCommunication
             q3 = joints[3];
             q4 = joints[4];
             q5 = joints[5];
-            JointsText.Text = $"[{q0.ToString("0.000")},{q1.ToString("0.000")},{q2.ToString("0.000")},{q3.ToString("0.000")},{q4.ToString("0.000")},{q5.ToString("0.000")}]";
+            JointsText.Text = $"[{q0.ToString("0.0000")},{q1.ToString("0.0000")},{q2.ToString("0.0000")},{q3.ToString("0.0000")},{q4.ToString("0.0000")},{q5.ToString("0.0000")}]";
 
 
 
@@ -452,7 +452,7 @@ namespace UniversalRobotsSocketCommunication
                 Array.Reverse(data);
             rz = System.BitConverter.ToDouble(data, 0);
 
-            PoseText.Text = $"p[{x.ToString("0.000")},{y.ToString("0.000")},{z.ToString("0.000")},{rx.ToString("0.000")},{ry.ToString("0.000")},{rz.ToString("0.000")}]";
+            PoseText.Text = $"p[{x.ToString("0.0000")},{y.ToString("0.0000")},{z.ToString("0.0000")},{rx.ToString("0.0000")},{ry.ToString("0.000")},{rz.ToString("0.0000")}]";
         }
         private void UpdateLabels()
         {
@@ -907,7 +907,7 @@ namespace UniversalRobotsSocketCommunication
 
         private void StartFreedrive_Clicked(object sender, EventArgs e)
         {
-            sendPrimaryCommand("freedrive_mode()");
+            sendPrimaryCommand("def frd():\r\nfreedrive_mode()\r\nsleep(60)\r\nend", supressOutput: true);
         }
 
         private void SendURScript_Clicked(object sender, EventArgs e)

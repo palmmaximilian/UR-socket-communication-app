@@ -270,6 +270,7 @@ namespace UniversalRobotsSocketCommunication
         double analogOut0 = 0;
         double analogOut1 = 0;
 
+        double sliderSpeed = 0;
         double x = 0;
         double y = 0;
         double z = 0;
@@ -367,6 +368,7 @@ namespace UniversalRobotsSocketCommunication
             analogInRange1 = (int)msg[9];
             analogOutRange0 = (int)msg[26];
             analogOutRange1 = (int)msg[27];
+            
 
             byte[] data = msg.Skip(10).Take(8).ToArray();
             if (BitConverter.IsLittleEndian)
@@ -488,6 +490,7 @@ namespace UniversalRobotsSocketCommunication
             analogOut1Combobox.SelectedIndex = analogOutRange1;
             analogIn0Combobox.SelectedIndex = analogInRange0;
             analogIn1Combobox.SelectedIndex = analogInRange1;
+            
 
             if (analogOutRange0 == 0)
             {
@@ -612,6 +615,14 @@ namespace UniversalRobotsSocketCommunication
 
                     switch(subMsgType)
                     {
+                        case 0:
+                            data = data.Skip(17).Take(8).ToArray();
+                            if (BitConverter.IsLittleEndian)
+                                Array.Reverse(data);
+                            double temp = System.BitConverter.ToDouble(data, 0);
+                            sliderSpeed = (int)(temp * 100);
+                            speedSlider.Value = (int)sliderSpeed;
+                            break;
                         case 1:
                             DecodeJointData(data);
                             break;
@@ -931,6 +942,21 @@ end", supressOutput: true);
         {
             sendPrimaryCommand(ScriptBox.Text, supressOutput:true);
             primaryOutput.AppendText("Script sent!\r\n");
+        }
+
+        private void speedSlider_Changed(object sender, EventArgs e)
+        {
+            if (!updating)
+            {
+                setting = true;
+                float percent = ((float)speedSlider.Value) / 100f;
+
+                if (primaryConnected)
+                {
+                    sendPrimaryCommand($"set speed {percent.ToString().Replace(',', '.')}");
+
+                }
+            }
         }
     }
 }

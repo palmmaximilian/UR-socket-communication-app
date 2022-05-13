@@ -61,6 +61,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dashboardOutput = new System.Windows.Forms.TextBox();
             this.PrimaryTab = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.speedSlider = new System.Windows.Forms.TrackBar();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.primarySendScript = new System.Windows.Forms.Button();
+            this.ScriptBox = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.JointsText = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.PoseText = new System.Windows.Forms.TextBox();
             this.primaryClear = new System.Windows.Forms.Button();
@@ -101,15 +109,10 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.JointsText = new System.Windows.Forms.TextBox();
-            this.ScriptBox = new System.Windows.Forms.TextBox();
-            this.primarySendScript = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.DashboardTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.PrimaryTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.speedSlider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogOut1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogOut0)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogIn1)).BeginInit();
@@ -451,6 +454,8 @@
             // 
             // PrimaryTab
             // 
+            this.PrimaryTab.Controls.Add(this.label20);
+            this.PrimaryTab.Controls.Add(this.speedSlider);
             this.PrimaryTab.Controls.Add(this.label19);
             this.PrimaryTab.Controls.Add(this.label18);
             this.PrimaryTab.Controls.Add(this.primarySendScript);
@@ -499,6 +504,83 @@
             this.PrimaryTab.TabIndex = 1;
             this.PrimaryTab.Text = "Primary Server";
             this.PrimaryTab.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(982, 228);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(67, 13);
+            this.label20.TabIndex = 60;
+            this.label20.Text = "Speed Slider";
+            // 
+            // speedSlider
+            // 
+            this.speedSlider.LargeChange = 10;
+            this.speedSlider.Location = new System.Drawing.Point(905, 244);
+            this.speedSlider.Maximum = 100;
+            this.speedSlider.Name = "speedSlider";
+            this.speedSlider.Size = new System.Drawing.Size(224, 45);
+            this.speedSlider.SmallChange = 5;
+            this.speedSlider.TabIndex = 59;
+            this.speedSlider.TickFrequency = 10;
+            this.speedSlider.ValueChanged += new System.EventHandler(this.speedSlider_Changed);
+            this.speedSlider.MouseCaptureChanged += new System.EventHandler(this.primaryRemoveEditing);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(32, 285);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(45, 16);
+            this.label19.TabIndex = 58;
+            this.label19.Text = "Output";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(647, 285);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(72, 16);
+            this.label18.TabIndex = 57;
+            this.label18.Text = "Script Input";
+            // 
+            // primarySendScript
+            // 
+            this.primarySendScript.Location = new System.Drawing.Point(650, 581);
+            this.primarySendScript.Name = "primarySendScript";
+            this.primarySendScript.Size = new System.Drawing.Size(124, 23);
+            this.primarySendScript.TabIndex = 56;
+            this.primarySendScript.Text = "Send Script";
+            this.primarySendScript.UseVisualStyleBackColor = true;
+            this.primarySendScript.Click += new System.EventHandler(this.primarySendScript_Click);
+            // 
+            // ScriptBox
+            // 
+            this.ScriptBox.Location = new System.Drawing.Point(650, 304);
+            this.ScriptBox.Multiline = true;
+            this.ScriptBox.Name = "ScriptBox";
+            this.ScriptBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ScriptBox.Size = new System.Drawing.Size(605, 271);
+            this.ScriptBox.TabIndex = 55;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(1221, 186);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(34, 13);
+            this.label17.TabIndex = 54;
+            this.label17.Text = "Joints";
+            // 
+            // JointsText
+            // 
+            this.JointsText.Location = new System.Drawing.Point(895, 183);
+            this.JointsText.Name = "JointsText";
+            this.JointsText.Size = new System.Drawing.Size(320, 20);
+            this.JointsText.TabIndex = 53;
             // 
             // label16
             // 
@@ -946,61 +1028,6 @@
             this.label11.TabIndex = 4;
             this.label11.Text = "Server";
             // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(1221, 186);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(34, 13);
-            this.label17.TabIndex = 54;
-            this.label17.Text = "Joints";
-            // 
-            // JointsText
-            // 
-            this.JointsText.Location = new System.Drawing.Point(895, 183);
-            this.JointsText.Name = "JointsText";
-            this.JointsText.Size = new System.Drawing.Size(320, 20);
-            this.JointsText.TabIndex = 53;
-            // 
-            // ScriptBox
-            // 
-            this.ScriptBox.Location = new System.Drawing.Point(650, 304);
-            this.ScriptBox.Multiline = true;
-            this.ScriptBox.Name = "ScriptBox";
-            this.ScriptBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ScriptBox.Size = new System.Drawing.Size(605, 271);
-            this.ScriptBox.TabIndex = 55;
-            // 
-            // primarySendScript
-            // 
-            this.primarySendScript.Location = new System.Drawing.Point(650, 581);
-            this.primarySendScript.Name = "primarySendScript";
-            this.primarySendScript.Size = new System.Drawing.Size(124, 23);
-            this.primarySendScript.TabIndex = 56;
-            this.primarySendScript.Text = "Send Script";
-            this.primarySendScript.UseVisualStyleBackColor = true;
-            this.primarySendScript.Click += new System.EventHandler(this.primarySendScript_Click);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(647, 285);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(72, 16);
-            this.label18.TabIndex = 57;
-            this.label18.Text = "Script Input";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(32, 285);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(45, 16);
-            this.label19.TabIndex = 58;
-            this.label19.Text = "Output";
-            // 
             // URCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1019,6 +1046,7 @@
             this.tabPage1.PerformLayout();
             this.PrimaryTab.ResumeLayout(false);
             this.PrimaryTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.speedSlider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogOut1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogOut0)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sliderAnalogIn1)).EndInit();
@@ -1109,6 +1137,8 @@
         private System.Windows.Forms.TextBox ScriptBox;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TrackBar speedSlider;
+        private System.Windows.Forms.Label label20;
     }
 }
 
